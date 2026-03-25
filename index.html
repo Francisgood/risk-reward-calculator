@@ -8,18 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #060810;
-    --bg2: #0c1020;
-    --bg3: #111827;
-    --gold: #F0B429;
-    --gold2: #FFD97D;
+    --bg: #000000;
+    --bg2: #0d0d00;
+    --bg3: #111100;
+    --gold: #FFEE00;
+    --gold2: #FFF59D;
+    --beige: #EDE0C4;
     --teal: #00E5C4;
     --red: #FF4D6D;
-    --muted: #3a4460;
-    --text: #E8EDF5;
-    --text2: #8892A8;
-    --border: rgba(240,180,41,0.18);
-    --glow: rgba(240,180,41,0.12);
+    --muted: #3a3a20;
+    --text: #F5EDD5;
+    --text2: #A89E7A;
+    --border: rgba(255,238,0,0.18);
+    --glow: rgba(255,238,0,0.12);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -94,25 +95,54 @@
     overflow: hidden;
   }
 
-  .hero-grid-bg {
+  /* ─── PARALLAX LAYERS ─── */
+  .parallax-scene {
     position: absolute;
     inset: 0;
-    background-image: url('https://www.coinfello.com/illustration-bg.svg');
-    background-size: cover;
-    background-position: center right;
-    background-repeat: no-repeat;
-    opacity: 0.18;
-    mask-image: radial-gradient(ellipse 90% 90% at 60% 50%, black 30%, transparent 100%);
-  }
-
-  .hero-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
+    overflow: hidden;
     pointer-events: none;
   }
-  .orb1 { width: 600px; height: 600px; background: rgba(240,180,41,0.08); top: -100px; right: -100px; }
-  .orb2 { width: 400px; height: 400px; background: rgba(0,229,196,0.06); bottom: 0; left: 200px; }
+
+  .parallax-layer {
+    position: absolute;
+    will-change: transform;
+  }
+
+  .layer-sun {
+    width: 220px;
+    top: 8%;
+    right: 12%;
+    opacity: 0.95;
+  }
+
+  .layer-cloud2 {
+    width: 380px;
+    top: 22%;
+    right: 5%;
+    opacity: 0.85;
+  }
+
+  .layer-cloud1 {
+    width: 300px;
+    top: 30%;
+    right: 28%;
+    opacity: 0.9;
+  }
+
+  .layer-landscape {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    object-fit: cover;
+    object-position: bottom center;
+    opacity: 0.75;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 30%);
+  }
+
+  /* Keep orb divs in markup but hide them */
+  .hero-orb { display: none; }
+  .hero-grid-bg { display: none; }
 
   .hero-eyebrow {
     font-family: 'Space Mono', monospace;
@@ -931,9 +961,12 @@
 
 <!-- HERO -->
 <section class="hero" style="padding-top: 140px;">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-orb orb1"></div>
-  <div class="hero-orb orb2"></div>
+  <div class="parallax-scene">
+    <img class="parallax-layer layer-sun" data-speed="0.15" src="sun.png" alt="">
+    <img class="parallax-layer layer-cloud2" data-speed="0.25" src="cloud2.png" alt="">
+    <img class="parallax-layer layer-cloud1" data-speed="0.35" src="cloud1.png" alt="">
+    <img class="parallax-layer layer-landscape" data-speed="0.5" src="landscape.png" alt="">
+  </div>
 
   <div class="hero-eyebrow">Risk / Reward Intelligence</div>
   <h1>KNOW YOUR<br><span class="gold">RISK.</span><br><span class="outline">KNOW YOUR</span><br>RETURN.</h1>
@@ -1512,6 +1545,19 @@ function handleSignup(e) {
 
 // ─── INIT ───
 window.addEventListener('load', initChart);
+
+// ─── PARALLAX ───
+(function() {
+  const layers = document.querySelectorAll('.parallax-layer');
+  function onScroll() {
+    const y = window.scrollY;
+    layers.forEach(el => {
+      const speed = parseFloat(el.dataset.speed) || 0.2;
+      el.style.transform = `translateY(${y * speed}px)`;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
 </script>
 </body>
 </html>
