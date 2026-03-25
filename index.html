@@ -55,8 +55,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 48px;
-    background: linear-gradient(to bottom, rgba(6,8,16,0.95), transparent);
-    backdrop-filter: blur(4px);
+    background: #FEFEE3;
+    backdrop-filter: none;
   }
 
   .logo {
@@ -64,12 +64,12 @@
     align-items: center;
     text-decoration: none;
   }
-  .logo img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+  .logo img { height: 32px; width: auto; filter: brightness(0); }
   .logo span { display: none; }
 
   .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; letter-spacing: 0.5px; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a { color: #333; text-decoration: none; font-size: 13px; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: #000; }
   .nav-cta {
     background: var(--gold);
     color: #000;
@@ -109,24 +109,30 @@
   }
 
   .layer-sun {
-    width: 220px;
+    width: 70px;
     top: 8%;
-    right: 12%;
+    right: 8%;
     opacity: 0.95;
   }
 
   .layer-cloud2 {
-    width: 380px;
+    width: 90px;
     top: 22%;
-    right: 5%;
+    right: 3%;
     opacity: 0.85;
   }
 
   .layer-cloud1 {
-    width: 300px;
+    width: 80px;
     top: 30%;
-    right: 28%;
+    right: 18%;
     opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    .layer-sun { width: 90px; right: 12%; }
+    .layer-cloud2 { width: 90px; right: 5%; }
+    .layer-cloud1 { width: 80px; right: 28%; }
   }
 
   .layer-landscape {
